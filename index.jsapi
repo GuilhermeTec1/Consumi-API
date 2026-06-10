@@ -1,0 +1,43 @@
+const express = require("express");
+const cors = require("cors");
+
+const app = express();
+
+app.use(cors());
+
+// Rota inicial
+app.get("/", (req, res) => {
+    res.json({
+        mensagem: "Bem-vindo à API da Escola"
+    });
+});
+
+// Rota alunos
+app.get("/alunos", (req, res) => {
+    res.json([
+        { id: 1, nome: "Maria", idade: 18 },
+        { id: 2, nome: "João", idade: 17 },
+        { id: 3, nome: "Ana", idade: 19 }
+    ]);
+});
+
+// Rota cursos
+app.get("/cursos", (req, res) => {
+    res.json([
+        { id: 1, curso: "Desenvolvimento Web" },
+        { id: 2, curso: "Banco de Dados" },
+        { id: 3, curso: "JavaScript" }
+    ]);
+});
+
+// Rota professor
+app.get("/professor", (req, res) => {
+    res.json({
+        nome: "João Silva",
+        disciplina: "Desenvolvimento Web"
+    });
+});
+
+app.listen(3000, () => {
+    console.log("Servidor rodando em http://localhost:3000");
+});
