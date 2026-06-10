@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema da Escola</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sistema da Escola</h1>
+
+    <button onclick="mostrarAlunos()">Mostrar Alunos</button>
+    <button onclick="mostrarCursos()">Mostrar Cursos</button>
+    <button onclick="mostrarProfessor()">Mostrar Professor</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        const resultado = document.getElementById("resultado");
+
+        async function mostrarAlunos() {
+            const resposta = await fetch("http://localhost:3000/alunos");
+            const alunos = await resposta.json();
+
+            resultado.innerHTML = "<h2>Alunos</h2>";
+
+            alunos.forEach(aluno => {
+                resultado.innerHTML += `
+                    <p>
+                        ID: ${aluno.id} |
+                        Nome: ${aluno.nome} |
+                        Idade: ${aluno.idade}
+                    </p>
+                `;
+            });
+        }
+
+        async function mostrarCursos() {
+            const resposta = await fetch("http://localhost:3000/cursos");
+            const cursos = await resposta.json();
+
+            resultado.innerHTML = "<h2>Cursos</h2>";
+
+            cursos.forEach(curso => {
+                resultado.innerHTML += `
+                    <p>
+                        ID: ${curso.id} |
+                        Curso: ${curso.curso}
+                    </p>
+                `;
+            });
+        }
+
+        async function mostrarProfessor() {
+            const resposta = await fetch("http://localhost:3000/professor");
+            const professor = await resposta.json();
+
+            resultado.innerHTML = `
+                <h2>Professor</h2>
+                <p>Nome: ${professor.nome}</p>
+                <p>Disciplina: ${professor.disciplina}</p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
